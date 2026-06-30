@@ -248,7 +248,13 @@
       </div>
     </section>
 
-    <section id="proyectos" class="section-space scroll-mt-20">
+    <section id="proyectos" class="projects-section section-space scroll-mt-20">
+      <div class="project-bg project-bg-1" aria-hidden="true"></div>
+      <div class="project-bg project-bg-2" aria-hidden="true"></div>
+      <div class="project-particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
       <div class="mx-auto w-[min(1180px,92%)]">
         <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div class="section-heading reveal">
@@ -257,7 +263,7 @@
           </div>
           <p class="reveal max-w-md leading-7 text-slate-400">Soluciones orientadas a optimizar operaciones, centralizar información y facilitar decisiones.</p>
         </div>
-        <div id="projects-grid" class="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3" aria-live="polite"></div>
+        <div id="projects-grid" class="projects-grid mt-14" aria-live="polite"></div>
       </div>
     </section>
 
@@ -309,6 +315,8 @@
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Volver arriba">↑</button>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>

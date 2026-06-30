@@ -51,14 +51,14 @@ const PORTFOLIO = {
     }
   ],
   projects: [
-    { title: "Sistema de Cobros", description: "Sistema integral para gestión de cuentas, pagos, cortes mensuales, estados de cuenta y reportes financieros.", technologies: ["Laravel", "MySQL", "Tailwind CSS"], demoUrl: "#", codeUrl: "#" },
-    { title: "Gestor de Expedientes", description: "Plataforma para gestión digital de expedientes, flujos de aprobación, seguimiento y control documental.", technologies: ["Laravel", "PostgreSQL", "JavaScript"], demoUrl: "#", codeUrl: "#" },
-    { title: "Sistema de Almacén", description: "Sistema para control de inventario, productos, solicitudes, aprobaciones y movimientos de almacén.", technologies: ["Laravel", "MySQL", "Livewire"], demoUrl: "#", codeUrl: "#" },
-    { title: "SIIAI", description: "Sistema de información y análisis territorial con mapas interactivos, capas geoespaciales y visualización de datos.", technologies: ["Laravel", "JavaScript", "GeoJSON"], demoUrl: "#", codeUrl: "#" },
-    { title: "FortuCreditos", description: "Plataforma financiera para gestión de créditos, clientes, pagos y análisis financiero.", technologies: ["Laravel", "MySQL", "Tailwind CSS"], demoUrl: "#", codeUrl: "#" },
-    { title: "app-backend-ruts-v1", description: "Servicio backend para consultas, integraciones y administración de datos basados en rutas.", technologies: ["Python", "FastAPI", "PostgreSQL"], demoUrl: "#", codeUrl: "#" },
-    { title: "DevSysGt", description: "Plataforma de servicios tecnológicos, desarrollo web, sistemas empresariales y soluciones digitales.", technologies: ["Laravel", "Tailwind CSS", "JavaScript"], demoUrl: "#", codeUrl: "#" },
-    { title: "Otros proyectos", description: "Proyectos web, APIs, automatización, sistemas empresariales y herramientas personalizadas.", technologies: [".NET", "Angular", "SQL Server"], demoUrl: "#", codeUrl: "#" }
+    { title: "Sistema de Cobros", category: "Gobierno", description: "Sistema integral para gestión de cuentas, pagos, cortes mensuales, estados de cuenta y reportes financieros.", technologies: ["Laravel", "Livewire", "MySQL"], imageUrl: "assets/img/project/sistema_cobro.png", demoUrl: "#", codeUrl: "#" },
+    { title: "Gestor de Expedientes", category: "Gobierno", description: "Plataforma para gestión digital de expedientes, flujos de aprobación, seguimiento y control documental.", technologies: ["Laravel", "Livewire", "MySQL"], imageUrl: "assets/img/project/gestor_expedientes.png", demoUrl: "#", codeUrl: "#" },
+    { title: "Sistema de Almacén", category: "Gobierno", description: "Sistema para control de inventario, productos, solicitudes, aprobaciones y movimientos de almacén.", technologies: ["Laravel", "Livewire", "MySQL"], imageUrl: "assets/img/project/almacen.png", demoUrl: "#", codeUrl: "#" },
+    { title: "SIIAI", category: "Gobierno", description: "Sistema de información y análisis territorial con mapas interactivos, capas geoespaciales y visualización de datos.", technologies: ["Laravel", "Leaflet", "GeoJSON"], imageUrl: "assets/img/project/siiai.png", demoUrl: "#", codeUrl: "#" },
+    { title: "FortuCréditos", category: "Empresarial", description: "Plataforma financiera para gestión de créditos, clientes, pagos y reportes administrativos.", technologies: ["PHP", "MySQL", "Tailwind", "React"], imageUrl: "assets/img/project/fortucreditos.png", demoUrl: "#", codeUrl: "#" },
+    { title: "app-backend-rutas-v1", category: "API", description: "Servicio backend para consultas, integraciones y administración de datos basados en rutas comerciales.", technologies: ["Laravel", "FastAPI", "MySQL", "Flutter"], imageUrl: "assets/img/project/app-backend-rutas.png", demoUrl: "#", codeUrl: "#" },
+    { title: "DevSysGt", category: "Web", description: "Sitio web corporativo para servicios tecnológicos, desarrollo web, sistemas empresariales y soluciones digitales.", technologies: ["Laravel", "Tailwind CSS", "JavaScript"], imageUrl: "assets/img/project/devsysgt.png", demoUrl: "#", codeUrl: "#" },
+    { title: "Otros proyectos", category: "Portfolio", description: "Otros sistemas empresariales, APIs, automatización, landing pages y herramientas personalizadas.", technologies: [".NET", "Angular", "SQL Server"], imageUrl: "assets/img/project/otros_proyectos.png", demoUrl: "#", codeUrl: "#" }
   ]
 };
 
@@ -103,25 +103,30 @@ function renderTechnologies() {
 
 function projectLink(url, label, icon) {
   const disabled = !url || url === "#";
-  return `<a class="project-action${disabled ? " disabled" : ""}" href="${disabled ? "#" : escapeHtml(url)}" ${disabled ? "data-placeholder-link" : 'target="_blank" rel="noopener noreferrer"'} aria-label="${escapeHtml(label)}">${escapeHtml(icon)} ${escapeHtml(label)}</a>`;
+  if (disabled) return "";
+  return `<a class="project-action" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">${escapeHtml(icon)} ${escapeHtml(label)}</a>`;
 }
 
 function renderProjects() {
   const grid = qs("#projects-grid");
   grid.innerHTML = PORTFOLIO.projects.map((project, index) => `
-    <article class="project-card reveal">
-      <div class="project-preview" role="img" aria-label="Vista conceptual de ${escapeHtml(project.title)}">
-        <div class="project-window">
-          <div class="window-bar"><i></i><i></i><i></i></div>
-          <div class="window-body"><div class="window-side"></div><div class="window-content"><div class="window-line accent"></div><div class="window-line"></div><div class="window-line"></div><div class="window-line" style="width:68%"></div></div></div>
+    <article class="project-card project-animate">
+      <div class="project-image" role="img" aria-label="Captura de pantalla de ${escapeHtml(project.title)}">
+        <div class="project-browser-bar">
+          <span class="project-browser-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="project-address">${escapeHtml(project.title.toLowerCase().replace(/\s+/g, "-"))}</span>
         </div>
+        <img src="${escapeHtml(project.imageUrl)}" alt="Captura del proyecto ${escapeHtml(project.title)}" loading="lazy" decoding="async">
       </div>
       <div class="project-content">
-        <span class="project-index">PROYECTO_${String(index + 1).padStart(2, "0")}</span>
-        <h3>${escapeHtml(project.title)}</h3>
+        <span class="project-number">PROJECT_${String(index + 1).padStart(2, "0")}</span>
+        <div class="project-title-row">
+          <h3>${escapeHtml(project.title)}</h3>
+          <span class="project-category">${escapeHtml(project.category)}</span>
+        </div>
         <p>${escapeHtml(project.description)}</p>
-        <div class="badge-row">${project.technologies.map((tech) => `<span class="tech-badge">${escapeHtml(tech)}</span>`).join("")}</div>
-        <div class="project-actions">${projectLink(project.demoUrl, "Demo", "↗")}${projectLink(project.codeUrl, "Código", "⌘")}</div>
+        <div class="tech-tags">${project.technologies.map((tech) => `<span class="tech-badge">${escapeHtml(tech)}</span>`).join("")}</div>
+        <div class="project-actions">${projectLink(project.demoUrl, "Demo", "↗")}${projectLink(project.codeUrl, "GitHub", "⌘")}</div>
       </div>
     </article>
   `).join("");
@@ -199,6 +204,59 @@ function setupRevealAnimations() {
   items.forEach((item, index) => {
     item.style.transitionDelay = `${Math.min(index % 6, 3) * 55}ms`;
     observer.observe(item);
+  });
+}
+
+function setupProjectAnimations() {
+  const cards = qsa(".project-animate");
+  if (!cards.length) return;
+
+  if (reducedMotion) {
+    cards.forEach((card) => card.classList.add("visible"));
+    return;
+  }
+
+  if (window.gsap && window.ScrollTrigger) {
+    window.gsap.registerPlugin(window.ScrollTrigger);
+    window.gsap.fromTo(cards,
+      { autoAlpha: 0, y: 34, scale: .96 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        duration: .75,
+        ease: "power3.out",
+        stagger: .11,
+        scrollTrigger: {
+          trigger: "#projects-grid",
+          start: "top 78%",
+          once: true
+        },
+        onComplete: () => {
+          cards.forEach((card) => card.classList.add("visible"));
+          window.gsap.set(cards, { clearProps: "all" });
+        }
+      }
+    );
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    cards.forEach((card) => card.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, instance) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      instance.unobserve(entry.target);
+    });
+  }, { threshold: .18, rootMargin: "0px 0px -40px" });
+
+  cards.forEach((card, index) => {
+    card.style.transitionDelay = `${Math.min(index, 7) * 75}ms`;
+    observer.observe(card);
   });
 }
 
@@ -478,6 +536,7 @@ function init() {
   setupNavigation();
   setupConfigurableLinks();
   setupRevealAnimations();
+  setupProjectAnimations();
   setupCounters();
   setupParticles();
   setupHeroCodeTyping();
