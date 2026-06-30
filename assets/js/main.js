@@ -6,8 +6,8 @@
  */
 const PORTFOLIO = {
   cvUrl: "#",
-  linkedinUrl: "#",
-  whatsappUrl: "#",
+  linkedinUrl: "https://www.linkedin.com/in/anderson-perdomo-16a025273/",
+  whatsappUrl: "https://wa.me/50232842586",
   technologies: [
     {
       group: "Backend",
@@ -297,7 +297,14 @@ function setupConfigurableLinks() {
   if (PORTFOLIO.cvUrl === "#") cv.removeAttribute("download");
 
   const socialMap = { linkedin: PORTFOLIO.linkedinUrl, whatsapp: PORTFOLIO.whatsappUrl };
-  qsa("[data-social]").forEach((link) => { link.href = socialMap[link.dataset.social] || "#"; });
+  qsa("[data-social]").forEach((link) => {
+    const url = socialMap[link.dataset.social] || "#";
+    link.href = url;
+    if (url !== "#") {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    }
+  });
 
   document.addEventListener("click", (event) => {
     const placeholder = event.target.closest('[data-placeholder-link], #cv-link, [data-social]');
