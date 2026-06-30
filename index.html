@@ -153,52 +153,98 @@
       </a>
     </section>
 
-    <section id="sobre-mi" class="section-space scroll-mt-20">
-      <div class="mx-auto w-[min(1180px,92%)]">
+    <section id="sobre-mi" class="about-section section-space scroll-mt-20">
+      <div class="about-bg-light about-bg-light-1" data-about-light aria-hidden="true"></div>
+      <div class="about-bg-light about-bg-light-2" data-about-light aria-hidden="true"></div>
+      <div class="about-particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="relative mx-auto w-[min(1180px,92%)]">
         <div class="section-heading reveal">
           <span class="section-number">01.</span>
-          <div><p class="eyebrow">Conoce mi perfil</p><h2 class="section-title">Sobre mí</h2></div>
+          <div><p class="eyebrow">Perfil técnico integral</p><h2 class="section-title">Sobre mí</h2></div>
         </div>
 
-        <div class="mt-14 grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
-          <article class="glass-card reveal relative overflow-hidden p-8 sm:p-10">
-            <div class="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-cyan-400/10 blur-3xl"></div>
-            <p class="font-mono text-sm text-cyan-300">// perfil.json</p>
-            <div class="mt-7 grid gap-5 text-sm">
-              <div><span class="code-key">"nombre"</span><span class="text-slate-500">: </span><span class="code-value">"Anderson Perdomo"</span></div>
-              <div><span class="code-key">"rol"</span><span class="text-slate-500">: </span><span class="code-value">"Full Stack Developer"</span></div>
-              <div><span class="code-key">"ubicación"</span><span class="text-slate-500">: </span><span class="code-value">"Guatemala"</span></div>
-              <div><span class="code-key">"experiencia"</span><span class="text-slate-500">: </span><span class="code-number">3+</span></div>
-              <div><span class="code-key">"enfoque"</span><span class="text-slate-500">: [</span></div>
-              <div class="ml-5 grid gap-2 text-slate-300"><span>"Código limpio",</span><span>"Arquitectura escalable",</span><span>"Soluciones prácticas"</span></div>
-              <div class="text-slate-500">]</div>
+        <div class="about-grid mt-14 grid gap-8 lg:grid-cols-[.92fr_1.08fr] lg:items-start">
+          <article class="about-terminal reveal" aria-label="Perfil técnico en una ventana de código">
+            <div class="about-terminal__bar">
+              <div class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="terminal-tabs" role="tablist" aria-label="Archivos del perfil">
+                <button class="terminal-tab active" type="button" role="tab" aria-selected="true" data-about-tab="perfil">perfil.json</button>
+                <button class="terminal-tab" type="button" role="tab" aria-selected="false" data-about-tab="stack">stack.ts</button>
+                <button class="terminal-tab" type="button" role="tab" aria-selected="false" data-about-tab="infra">infra.yml</button>
+              </div>
             </div>
+            <div class="terminal-toolbar">
+              <span>anderson@portfolio</span>
+              <strong>production-ready</strong>
+            </div>
+            <pre class="about-terminal__code"><code id="about-code" aria-live="polite"></code><span class="typing-caret" aria-hidden="true"></span></pre>
           </article>
 
-          <div class="reveal lg:py-5">
-            <h3 class="font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">Construyo tecnología que resuelve problemas reales.</h3>
+          <div class="about-copy reveal lg:py-4">
+            <div class="about-kicker"><span></span> Software · Infraestructura · Seguridad</div>
+            <h3 class="font-display text-3xl font-semibold leading-tight text-white sm:text-4xl">
+              Construyo soluciones tecnológicas completas, desde el software hasta la infraestructura.
+            </h3>
             <div class="mt-6 space-y-5 leading-8 text-slate-400">
-              <p>Soy desarrollador Full Stack de Guatemala, con experiencia construyendo aplicaciones web, APIs REST, sistemas empresariales, herramientas de automatización y soluciones de bases de datos.</p>
-              <p>Me enfoco en entender el proceso de negocio antes de escribir código. Así puedo diseñar soluciones mantenibles, seguras y preparadas para evolucionar junto con las necesidades de cada organización.</p>
+              <p>Soy desarrollador Full Stack de Guatemala, con experiencia creando aplicaciones web, APIs REST, sistemas empresariales, automatización de procesos y soluciones de bases de datos.</p>
+              <p>Además, cuento con experiencia en infraestructura tecnológica, administración de servidores, configuración de redes, manejo de firewall Fortinet/FortiGate, segmentación de red, creación de políticas de seguridad, grupos de acceso, Active Directory, Ubuntu Server y despliegue de páginas web.</p>
+              <p>Mi enfoque es comprender las necesidades del negocio para crear soluciones seguras, escalables y mantenibles que generen valor real.</p>
             </div>
-            <div class="mt-8 grid gap-4 sm:grid-cols-3">
-              <div class="feature-chip"><span>◇</span><strong>Código limpio</strong></div>
-              <div class="feature-chip"><span>⌘</span><strong>Escalabilidad</strong></div>
-              <div class="feature-chip"><span>◎</span><strong>Valor real</strong></div>
+
+            <div class="about-highlights mt-8 grid gap-3 sm:grid-cols-3">
+              <div class="feature-chip about-chip"><span>API</span><strong>REST APIs y sistemas</strong></div>
+              <div class="feature-chip about-chip"><span>FW</span><strong>FortiGate y políticas</strong></div>
+              <div class="feature-chip about-chip"><span>AD</span><strong>Usuarios y accesos</strong></div>
             </div>
           </div>
+        </div>
+
+        <div class="about-stats reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="about-stat"><strong><span data-counter="3">0</span>+</strong><span>Años de experiencia</span></article>
+          <article class="about-stat"><strong><span data-counter="15">0</span>+</strong><span>Proyectos trabajados</span></article>
+          <article class="about-stat"><strong><span data-counter="8">0</span>+</strong><span>Tecnologías principales</span></article>
+          <article class="about-stat"><strong><span data-counter="100">0</span>%</strong><span>Compromiso</span></article>
+        </div>
+
+        <div class="about-categories mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <article class="about-category reveal">
+            <span class="about-category__icon" aria-hidden="true"><i class="devicon-javascript-plain"></i></span>
+            <h4>Desarrollo</h4>
+            <div class="about-badges"><span>Laravel</span><span>.NET</span><span>Angular</span><span>React</span><span>Python</span><span>REST APIs</span></div>
+          </article>
+          <article class="about-category reveal">
+            <span class="about-category__icon" aria-hidden="true"><i class="devicon-microsoftsqlserver-plain"></i></span>
+            <h4>Bases de datos</h4>
+            <div class="about-badges"><span>SQL Server</span><span>MySQL</span><span>PostgreSQL</span><span>Query optimization</span><span>Reports</span></div>
+          </article>
+          <article class="about-category reveal">
+            <span class="about-category__icon" aria-hidden="true"><i class="devicon-ubuntu-plain"></i></span>
+            <h4>Infraestructura</h4>
+            <div class="about-badges"><span>Ubuntu Server</span><span>Windows Server</span><span>Hosting</span><span>Deployments</span><span>cPanel</span></div>
+          </article>
+          <article class="about-category reveal">
+            <span class="about-category__icon" aria-hidden="true">SH</span>
+            <h4>Redes y Seguridad</h4>
+            <div class="about-badges"><span>Fortinet / FortiGate</span><span>Firewall policies</span><span>Network segmentation</span><span>Active Directory</span><span>Access groups</span></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="habilidades" class="section-space scroll-mt-20 bg-slate-900/25">
+    <section id="habilidades" class="tech-section section-space scroll-mt-20 bg-slate-900/25">
       <div class="mx-auto w-[min(1180px,92%)]">
-        <div class="section-heading reveal">
-          <span class="section-number">02.</span>
-          <div><p class="eyebrow">Herramientas que utilizo</p><h2 class="section-title">Stack tecnológico</h2></div>
+        <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div class="section-heading reveal">
+            <span class="section-number">02.</span>
+            <div><p class="eyebrow">Herramientas que utilizo</p><h2 class="section-title">Tecnologías principales</h2></div>
+          </div>
+          <p class="reveal max-w-md leading-7 text-slate-400">Dashboard compacto de herramientas, nivel técnico y experiencia práctica aplicada en proyectos reales.</p>
         </div>
-        <p class="reveal mt-6 max-w-2xl leading-7 text-slate-400">Tecnologías seleccionadas según el problema, la arquitectura y los objetivos del producto.</p>
-        <div id="tech-grid" class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" aria-live="polite"></div>
+        <div id="tech-grid" class="tech-skills-dashboard reveal mt-10" aria-live="polite"></div>
       </div>
     </section>
 

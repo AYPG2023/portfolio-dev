@@ -9,11 +9,46 @@ const PORTFOLIO = {
   linkedinUrl: "#",
   whatsappUrl: "#",
   technologies: [
-    ["Laravel", "L"], ["PHP", "PHP"], [".NET", ".N"], ["C#", "C#"],
-    ["Angular", "A"], ["React", "R"], ["JavaScript", "JS"], ["TypeScript", "TS"],
-    ["Python", "Py"], ["SQL Server", "SQL"], ["MySQL", "My"], ["PostgreSQL", "Pg"],
-    ["Docker", "D"], ["Git", "Git"], ["GitHub", "GH"], ["Tailwind CSS", "TW"],
-    ["REST APIs", "API"]
+    {
+      group: "Backend",
+      items: [
+        { name: "Laravel", iconClass: "devicon-laravel-original", level: "advanced" },
+        { name: "PHP", iconClass: "devicon-php-plain", level: "advanced" },
+        { name: "REST APIs", fallback: "API", level: "advanced" },
+        { name: ".NET", iconClass: "devicon-dot-net-plain", level: "intermediate" },
+        { name: "C#", iconClass: "devicon-csharp-plain", level: "intermediate" },
+        { name: "Python", iconClass: "devicon-python-plain", level: "intermediate" }
+      ]
+    },
+    {
+      group: "Frontend",
+      items: [
+        { name: "Tailwind CSS", fallback: "TW", level: "advanced" },
+        { name: "Angular", iconClass: "devicon-angularjs-plain", level: "intermediate" },
+        { name: "JavaScript", iconClass: "devicon-javascript-plain", level: "intermediate" },
+        { name: "TypeScript", iconClass: "devicon-typescript-plain", level: "intermediate" },
+        { name: "React", iconClass: "devicon-react-original", level: "basic" },
+        { name: "React Native", iconClass: "devicon-react-original", level: "basic" }
+      ]
+    },
+    {
+      group: "Databases",
+      items: [
+        { name: "MySQL", iconClass: "devicon-mysql-original", level: "advanced" },
+        { name: "SQL Server", iconClass: "devicon-microsoftsqlserver-plain", level: "intermediate" },
+        { name: "PostgreSQL", iconClass: "devicon-postgresql-plain", level: "intermediate" }
+      ]
+    },
+    {
+      group: "Infrastructure",
+      items: [
+        { name: "Git / GitHub", iconClass: "devicon-git-plain", level: "advanced" },
+        { name: "Ubuntu Server", iconClass: "devicon-ubuntu-plain", level: "intermediate" },
+        { name: "Fortinet / FortiGate", fallback: "FG", level: "intermediate" },
+        { name: "Active Directory", fallback: "AD", level: "intermediate" },
+        { name: "Docker", iconClass: "devicon-docker-plain", level: "basic" }
+      ]
+    }
   ],
   projects: [
     { title: "Sistema de Cobros", description: "Sistema integral para gestión de cuentas, pagos, cortes mensuales, estados de cuenta y reportes financieros.", technologies: ["Laravel", "MySQL", "Tailwind CSS"], demoUrl: "#", codeUrl: "#" },
@@ -37,12 +72,33 @@ const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({
 
 function renderTechnologies() {
   const grid = qs("#tech-grid");
-  grid.innerHTML = PORTFOLIO.technologies.map(([name, icon]) => `
-    <article class="tech-card reveal">
-      <span class="icon" aria-hidden="true">${escapeHtml(icon)}</span>
-      <strong>${escapeHtml(name)}</strong>
-    </article>
-  `).join("");
+  const renderIcon = (tech) => tech.iconClass
+    ? `<i class="${escapeHtml(tech.iconClass)}" aria-hidden="true"></i>`
+    : `<span aria-hidden="true">${escapeHtml(tech.fallback || tech.name.slice(0, 2))}</span>`;
+  const levelProgress = { advanced: 92, intermediate: 68, basic: 42 };
+  const levelLabels = { advanced: "Avanzado", intermediate: "Intermedio", basic: "Básico" };
+
+  grid.innerHTML = `
+    <div class="tech-dashboard-grid">
+      ${PORTFOLIO.technologies.map((group) => `
+        <article class="tech-group">
+          <h3>${escapeHtml(group.group)}</h3>
+          <div class="tech-skill-list">
+            ${group.items.map((tech) => `
+              <article class="tech-card" style="--skill-progress:${levelProgress[tech.level] || 50}%">
+                <div class="tech-card__top">
+                  <span class="icon">${renderIcon(tech)}</span>
+                  <span class="skill-level skill-level--${escapeHtml(tech.level)}">${escapeHtml(levelLabels[tech.level] || tech.level)}</span>
+                </div>
+                <strong>${escapeHtml(tech.name)}</strong>
+                <div class="skill-meter" aria-hidden="true"><span></span></div>
+              </article>
+            `).join("")}
+          </div>
+        </article>
+      `).join("")}
+    </div>
+  `;
 }
 
 function projectLink(url, label, icon) {
@@ -264,6 +320,109 @@ function setupHeroCodeTyping() {
   window.setTimeout(typeNext, 420);
 }
 
+function setupAboutTerminal() {
+  const code = qs("#about-code");
+  const tabs = qsa("[data-about-tab]");
+  if (!code || !tabs.length) return;
+
+  const files = {
+    perfil: `{
+  "nombre": "Anderson Perdomo",
+  "rol": "Full Stack Developer",
+  "ubicacion": "Guatemala",
+  "experiencia": "3+ años",
+  "enfoque": [
+    "Software escalable",
+    "Infraestructura estable",
+    "Seguridad y soporte técnico"
+  ]
+}`,
+    stack: `type StackPrincipal = {
+  backend: ["Laravel", ".NET", "Python"];
+  frontend: ["Angular", "React", "Tailwind CSS"];
+  datos: ["SQL Server", "MySQL", "PostgreSQL"];
+  entregables: ["REST APIs", "Sistemas empresariales", "Reportes"];
+  automatizacion: true;
+};`,
+    infra: `infraestructura:
+  servidores:
+    - Ubuntu Server
+    - Windows Server
+  redes_seguridad:
+    firewall: Fortinet / FortiGate
+    politicas: seguridad y acceso
+    segmentacion: redes internas
+    directorio: Active Directory
+  despliegue:
+    - hosting
+    - cPanel
+    - configuracion de servidores`
+  };
+
+  const highlight = (value) => escapeHtml(value)
+    .replace(/\b(type|true)\b/g, '<span class="code-token-keyword">$1</span>')
+    .replace(/\b(StackPrincipal|infraestructura|servidores|redes_seguridad|despliegue)\b/g, '<span class="code-token-name">$1</span>')
+    .replace(/\b(nombre|rol|ubicacion|experiencia|enfoque|backend|frontend|datos|entregables|automatizacion|firewall|politicas|segmentacion|directorio)\b(?=[:])/g, '<span class="code-token-key">$1</span>')
+    .replace(/(&quot;[^&]*?&quot;)/g, '<span class="code-token-string">$1</span>');
+
+  let timer = 0;
+  const render = (key, animate = true) => {
+    const source = files[key] || files.perfil;
+    window.clearTimeout(timer);
+
+    if (reducedMotion || !animate) {
+      code.innerHTML = highlight(source);
+      return;
+    }
+
+    let index = 0;
+    const typeNext = () => {
+      code.textContent = source.slice(0, index);
+      index += 1;
+      if (index <= source.length) {
+        timer = window.setTimeout(typeNext, index < 18 ? 16 : 7);
+        return;
+      }
+      code.innerHTML = highlight(source);
+    };
+    typeNext();
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const key = tab.dataset.aboutTab;
+      tabs.forEach((item) => {
+        const active = item === tab;
+        item.classList.toggle("active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+      render(key);
+    });
+  });
+
+  render("perfil", !reducedMotion);
+}
+
+function setupAboutParallax() {
+  const section = qs("#sobre-mi");
+  const lights = qsa("[data-about-light]", section);
+  if (!section || !lights.length || reducedMotion) return;
+
+  section.addEventListener("pointermove", (event) => {
+    const rect = section.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - .5) * 2;
+    lights.forEach((light, index) => {
+      const depth = index === 0 ? 18 : -14;
+      light.style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
+    });
+  }, { passive: true });
+
+  section.addEventListener("pointerleave", () => {
+    lights.forEach((light) => { light.style.transform = "translate3d(0, 0, 0)"; });
+  }, { passive: true });
+}
+
 function setupHeroParallax() {
   const visual = qs(".hero-visual");
   const portrait = qs("[data-portrait]");
@@ -322,6 +481,8 @@ function init() {
   setupCounters();
   setupParticles();
   setupHeroCodeTyping();
+  setupAboutTerminal();
+  setupAboutParallax();
   setupHeroParallax();
 }
 
