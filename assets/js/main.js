@@ -1,0 +1,328 @@
+"use strict";
+
+/**
+ * Contenido editable del portafolio. Sustituye los # cuando existan enlaces públicos.
+ * El CV puede configurarse con una ruta local, por ejemplo: assets/docs/Anderson-Perdomo-CV.pdf
+ */
+const PORTFOLIO = {
+  cvUrl: "#",
+  linkedinUrl: "#",
+  whatsappUrl: "#",
+  technologies: [
+    ["Laravel", "L"], ["PHP", "PHP"], [".NET", ".N"], ["C#", "C#"],
+    ["Angular", "A"], ["React", "R"], ["JavaScript", "JS"], ["TypeScript", "TS"],
+    ["Python", "Py"], ["SQL Server", "SQL"], ["MySQL", "My"], ["PostgreSQL", "Pg"],
+    ["Docker", "D"], ["Git", "Git"], ["GitHub", "GH"], ["Tailwind CSS", "TW"],
+    ["REST APIs", "API"]
+  ],
+  projects: [
+    { title: "Sistema de Cobros", description: "Sistema integral para gestión de cuentas, pagos, cortes mensuales, estados de cuenta y reportes financieros.", technologies: ["Laravel", "MySQL", "Tailwind CSS"], demoUrl: "#", codeUrl: "#" },
+    { title: "Gestor de Expedientes", description: "Plataforma para gestión digital de expedientes, flujos de aprobación, seguimiento y control documental.", technologies: ["Laravel", "PostgreSQL", "JavaScript"], demoUrl: "#", codeUrl: "#" },
+    { title: "Sistema de Almacén", description: "Sistema para control de inventario, productos, solicitudes, aprobaciones y movimientos de almacén.", technologies: ["Laravel", "MySQL", "Livewire"], demoUrl: "#", codeUrl: "#" },
+    { title: "SIIAI", description: "Sistema de información y análisis territorial con mapas interactivos, capas geoespaciales y visualización de datos.", technologies: ["Laravel", "JavaScript", "GeoJSON"], demoUrl: "#", codeUrl: "#" },
+    { title: "FortuCreditos", description: "Plataforma financiera para gestión de créditos, clientes, pagos y análisis financiero.", technologies: ["Laravel", "MySQL", "Tailwind CSS"], demoUrl: "#", codeUrl: "#" },
+    { title: "app-backend-ruts-v1", description: "Servicio backend para consultas, integraciones y administración de datos basados en rutas.", technologies: ["Python", "FastAPI", "PostgreSQL"], demoUrl: "#", codeUrl: "#" },
+    { title: "DevSysGt", description: "Plataforma de servicios tecnológicos, desarrollo web, sistemas empresariales y soluciones digitales.", technologies: ["Laravel", "Tailwind CSS", "JavaScript"], demoUrl: "#", codeUrl: "#" },
+    { title: "Otros proyectos", description: "Proyectos web, APIs, automatización, sistemas empresariales y herramientas personalizadas.", technologies: [".NET", "Angular", "SQL Server"], demoUrl: "#", codeUrl: "#" }
+  ]
+};
+
+const qs = (selector, parent = document) => parent.querySelector(selector);
+const qsa = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+})[char]);
+
+function renderTechnologies() {
+  const grid = qs("#tech-grid");
+  grid.innerHTML = PORTFOLIO.technologies.map(([name, icon]) => `
+    <article class="tech-card reveal">
+      <span class="icon" aria-hidden="true">${escapeHtml(icon)}</span>
+      <strong>${escapeHtml(name)}</strong>
+    </article>
+  `).join("");
+}
+
+function projectLink(url, label, icon) {
+  const disabled = !url || url === "#";
+  return `<a class="project-action${disabled ? " disabled" : ""}" href="${disabled ? "#" : escapeHtml(url)}" ${disabled ? "data-placeholder-link" : 'target="_blank" rel="noopener noreferrer"'} aria-label="${escapeHtml(label)}">${escapeHtml(icon)} ${escapeHtml(label)}</a>`;
+}
+
+function renderProjects() {
+  const grid = qs("#projects-grid");
+  grid.innerHTML = PORTFOLIO.projects.map((project, index) => `
+    <article class="project-card reveal">
+      <div class="project-preview" role="img" aria-label="Vista conceptual de ${escapeHtml(project.title)}">
+        <div class="project-window">
+          <div class="window-bar"><i></i><i></i><i></i></div>
+          <div class="window-body"><div class="window-side"></div><div class="window-content"><div class="window-line accent"></div><div class="window-line"></div><div class="window-line"></div><div class="window-line" style="width:68%"></div></div></div>
+        </div>
+      </div>
+      <div class="project-content">
+        <span class="project-index">PROYECTO_${String(index + 1).padStart(2, "0")}</span>
+        <h3>${escapeHtml(project.title)}</h3>
+        <p>${escapeHtml(project.description)}</p>
+        <div class="badge-row">${project.technologies.map((tech) => `<span class="tech-badge">${escapeHtml(tech)}</span>`).join("")}</div>
+        <div class="project-actions">${projectLink(project.demoUrl, "Demo", "↗")}${projectLink(project.codeUrl, "Código", "⌘")}</div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function setupNavigation() {
+  const header = qs("#site-header");
+  const toggle = qs("#menu-toggle");
+  const menu = qs("#mobile-menu");
+  const backToTop = qs("#back-to-top");
+  const links = qsa('.nav-link, .mobile-link');
+
+  const closeMenu = () => {
+    toggle.classList.remove("open");
+    menu.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Abrir menú");
+    menu.setAttribute("aria-hidden", "true");
+  };
+
+  toggle.addEventListener("click", () => {
+    const opening = !menu.classList.contains("open");
+    toggle.classList.toggle("open", opening);
+    menu.classList.toggle("open", opening);
+    toggle.setAttribute("aria-expanded", String(opening));
+    toggle.setAttribute("aria-label", opening ? "Cerrar menú" : "Abrir menú");
+    menu.setAttribute("aria-hidden", String(!opening));
+    if (opening) qs(".mobile-link", menu)?.focus();
+  });
+
+  links.forEach((link) => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !menu.classList.contains("open")) return;
+    closeMenu();
+    toggle.focus();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1024) closeMenu();
+  }, { passive: true });
+
+  const handleScroll = () => {
+    header.classList.toggle("scrolled", window.scrollY > 20);
+    backToTop.classList.toggle("visible", window.scrollY > 650);
+  };
+
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll();
+  backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }));
+
+  const sections = qsa("main section[id]");
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      links.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
+    });
+  }, { rootMargin: "-35% 0px -55%", threshold: 0 });
+  sections.forEach((section) => sectionObserver.observe(section));
+}
+
+function setupRevealAnimations() {
+  const items = qsa(".reveal");
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, instance) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      instance.unobserve(entry.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -40px" });
+
+  items.forEach((item, index) => {
+    item.style.transitionDelay = `${Math.min(index % 6, 3) * 55}ms`;
+    observer.observe(item);
+  });
+}
+
+function setupCounters() {
+  const counters = qsa("[data-counter]");
+  if (!counters.length) return;
+
+  const animate = (element) => {
+    const target = Number(element.dataset.counter);
+    if (reducedMotion) { element.textContent = target; return; }
+    const duration = 1100;
+    const start = performance.now();
+    const update = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      element.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  };
+
+  const observer = new IntersectionObserver((entries, instance) => entries.forEach((entry) => {
+    if (entry.isIntersecting) { animate(entry.target); instance.unobserve(entry.target); }
+  }), { threshold: .6 });
+  counters.forEach((counter) => observer.observe(counter));
+}
+
+function showToast(message) {
+  const toast = qs("#toast");
+  toast.textContent = message;
+  toast.classList.add("visible");
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(() => toast.classList.remove("visible"), 3200);
+}
+
+function setupConfigurableLinks() {
+  const cv = qs("#cv-link");
+  cv.href = PORTFOLIO.cvUrl;
+  if (PORTFOLIO.cvUrl === "#") cv.removeAttribute("download");
+
+  const socialMap = { linkedin: PORTFOLIO.linkedinUrl, whatsapp: PORTFOLIO.whatsappUrl };
+  qsa("[data-social]").forEach((link) => { link.href = socialMap[link.dataset.social] || "#"; });
+
+  document.addEventListener("click", (event) => {
+    const placeholder = event.target.closest('[data-placeholder-link], #cv-link, [data-social]');
+    if (!placeholder || placeholder.getAttribute("href") !== "#") return;
+    event.preventDefault();
+    showToast("Enlace pendiente de configurar en assets/js/main.js");
+  });
+}
+
+function setupParticles() {
+  const canvas = qs("#particle-canvas");
+  if (!canvas || reducedMotion) return;
+  const context = canvas.getContext("2d");
+  let particles = [];
+  let animationFrame;
+
+  const resize = () => {
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = window.innerWidth * ratio;
+    canvas.height = window.innerHeight * ratio;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = Math.min(45, Math.floor(window.innerWidth / 28));
+    particles = Array.from({ length: count }, () => ({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, radius: Math.random() * 1.2 + .3, speed: Math.random() * .18 + .06, opacity: Math.random() * .35 + .1 }));
+  };
+
+  const draw = () => {
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    particles.forEach((particle) => {
+      particle.y -= particle.speed;
+      if (particle.y < -3) { particle.y = window.innerHeight + 3; particle.x = Math.random() * window.innerWidth; }
+      context.beginPath();
+      context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      context.fillStyle = `rgba(103,232,249,${particle.opacity})`;
+      context.fill();
+    });
+    animationFrame = requestAnimationFrame(draw);
+  };
+
+  let resizeTimer;
+  window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 150); }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    cancelAnimationFrame(animationFrame);
+    if (!document.hidden) draw();
+  });
+  resize();
+  draw();
+}
+
+function setupHeroCodeTyping() {
+  const code = qs("#hero-code");
+  if (!code) return;
+
+  const source = code.dataset.code || "";
+  const highlight = (value) => escapeHtml(value)
+    .replace(/\b(const)\b/g, '<span class="code-token-keyword">$1</span>')
+    .replace(/\b(developer)\b/g, '<span class="code-token-name">$1</span>')
+    .replace(/\b(name|role|focus|passion|stack)\b(?=:)/g, '<span class="code-token-key">$1</span>')
+    .replace(/(&quot;[^&]*?&quot;)/g, '<span class="code-token-string">$1</span>');
+
+  if (reducedMotion) {
+    code.innerHTML = highlight(source);
+    return;
+  }
+
+  let index = 0;
+  const typeNext = () => {
+    code.textContent = source.slice(0, index);
+    index += 1;
+    if (index <= source.length) {
+      window.setTimeout(typeNext, index < 20 ? 18 : 11);
+      return;
+    }
+    code.innerHTML = highlight(source);
+  };
+
+  window.setTimeout(typeNext, 420);
+}
+
+function setupHeroParallax() {
+  const visual = qs(".hero-visual");
+  const portrait = qs("[data-portrait]");
+  if (!visual || !portrait || reducedMotion) return;
+  const floatCards = qsa(".tech-float", visual);
+
+  let raf = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+
+  const update = () => {
+    currentX += (targetX - currentX) * .12;
+    currentY += (targetY - currentY) * .12;
+
+    portrait.style.transform = `translate3d(calc(-50% + ${currentX * 14}px), ${currentY * 10}px, 44px) rotate(${currentX * 3.2}deg)`;
+    floatCards.forEach((card) => {
+      const depth = Number(card.dataset.depth || .15);
+      card.style.setProperty("--parallax-x", `${currentX * depth * 42}px`);
+      card.style.setProperty("--parallax-y", `${currentY * depth * 42}px`);
+    });
+
+    if (Math.abs(targetX - currentX) > .001 || Math.abs(targetY - currentY) > .001) {
+      raf = requestAnimationFrame(update);
+    } else {
+      raf = 0;
+    }
+  };
+
+  const queueUpdate = () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  };
+
+  visual.addEventListener("pointermove", (event) => {
+    const rect = visual.getBoundingClientRect();
+    targetX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+    queueUpdate();
+  }, { passive: true });
+
+  visual.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+    queueUpdate();
+  }, { passive: true });
+}
+
+function init() {
+  renderTechnologies();
+  renderProjects();
+  qs("#current-year").textContent = new Date().getFullYear();
+  setupNavigation();
+  setupConfigurableLinks();
+  setupRevealAnimations();
+  setupCounters();
+  setupParticles();
+  setupHeroCodeTyping();
+  setupHeroParallax();
+}
+
+document.addEventListener("DOMContentLoaded", init);
