@@ -5,7 +5,7 @@
  * El CV puede configurarse con una ruta local, por ejemplo: assets/docs/Anderson-Perdomo-CV.pdf
  */
 const PORTFOLIO = {
-  cvUrl: "#",
+  cvUrl: "assets/pdf/CV_Anderson_Perdomo.pdf",
   linkedinUrl: "https://www.linkedin.com/in/anderson-perdomo-16a025273/",
   whatsappUrl: "https://wa.me/50232842586",
   technologies: [
