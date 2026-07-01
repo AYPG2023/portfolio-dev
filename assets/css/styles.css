@@ -610,6 +610,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .tech-float strong { color: #e2e8f0; font-size: .82rem; }
 .tech-float small { margin-top: .1rem; color: #64748b; font-size: .62rem; }
 .tech-symbol { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border: 1px solid rgba(34,211,238,.28); border-radius: .72rem; background: rgba(34,211,238,.10); color: #67e8f9; font-family: "Space Grotesk"; font-size: 1.15rem; font-weight: 700; }
+.mobile-tech-stack { display: contents; }
+.mobile-tech-title { display: none; }
 .card-laravel { --angle: 220deg; --counter-angle: -220deg; --radius: clamp(236px, 24vw, 310px); }
 .card-mysql { --angle: 270deg; --counter-angle: -270deg; --radius: clamp(244px, 25vw, 320px); }
 .card-dotnet { --angle: 315deg; --counter-angle: -315deg; --radius: clamp(252px, 26vw, 330px); animation-delay: -.7s; }
@@ -1727,35 +1729,77 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .about-copy { max-width: 46rem; }
 }
 
+@media (max-width: 768px) {
+  .hero-content { row-gap: 2.5rem; padding-bottom: 3.5rem; }
+  .hero-visual {
+    min-height: min(116vw, 520px);
+    max-width: min(94vw, 460px);
+    margin-top: 0;
+    overflow: visible;
+  }
+  .hero-visual .hero-code-card { display: none; }
+  .mobile-tech-title { display: none; }
+  .mobile-tech-stack { display: contents; }
+  .portrait-orbit {
+    width: min(92vw, 430px);
+    height: min(92vw, 430px);
+    overflow: visible;
+  }
+  .portrait-ring-outer, .ring-dots { width: 80%; }
+  .portrait-ring-middle { width: 68%; }
+  .portrait-ring-inner { width: 56%; }
+  .portrait-person { max-width: min(62vw, 290px); }
+  .portrait-shadow { width: 54%; bottom: 5%; }
+  .portrait-fade { height: 96px; }
+  .tech-float {
+    z-index: 7;
+    min-width: auto;
+    gap: .45rem;
+    border-radius: .75rem;
+    padding: .48rem .56rem;
+  }
+  .tech-float::before { display: none; }
+  .tech-float small { display: none; }
+  .tech-float strong { font-size: .68rem; white-space: nowrap; }
+  .tech-symbol {
+    width: 1.72rem;
+    height: 1.72rem;
+    border-radius: .5rem;
+    font-size: .86rem;
+  }
+  .tech-float-1,
+  .tech-float-2,
+  .tech-float-4,
+  .tech-float-5 {
+    display: flex;
+  }
+  .tech-float-3,
+  .tech-float-6,
+  .tech-float-7,
+  .tech-float-8 {
+    display: none;
+  }
+  .tech-float-1 { --angle: 222deg; --counter-angle: -222deg; --radius: min(34vw, 148px); }
+  .tech-float-2 { --angle: 318deg; --counter-angle: -318deg; --radius: min(35vw, 152px); }
+  .tech-float-4 { --angle: 18deg; --counter-angle: -18deg; --radius: min(39vw, 168px); }
+  .tech-float-5 { --angle: 162deg; --counter-angle: -162deg; --radius: min(39vw, 168px); }
+}
+
 @media (max-width: 639px) {
   .hero-section { padding-top: 5.5rem; }
   .hero-section h1 { font-size: clamp(3.1rem, 16vw, 4.7rem); }
-  .hero-visual .hero-code-card { display: none; }
-  .hero-code-card pre { min-height: 9rem; font-size: .66rem; line-height: 1.55; }
-  .hero-visual { min-height: min(120vw, 500px); max-width: 430px; margin-bottom: 1rem; }
+  .hero-visual { min-height: min(118vw, 470px); max-width: 420px; margin-bottom: 1rem; }
   .portrait-orbit {
-    width: min(88vw, 390px);
-    height: min(88vw, 390px);
-    padding-bottom: 3rem;
+    width: min(88vw, 380px);
+    height: min(88vw, 380px);
   }
-  .portrait-ring-outer, .ring-dots { width: 82%; }
-  .portrait-ring-middle { width: 70%; }
-  .portrait-ring-inner { width: 58%; }
-  .portrait-person { max-width: min(62vw, 290px); }
-  .portrait-shadow { width: 54%; bottom: 6%; }
-  .portrait-fade { height: 100px; }
-  .tech-float { min-width: auto; gap: .45rem; padding: .5rem; border-radius: .75rem; }
-  .tech-float-2, .tech-float-3, .tech-float-4, .tech-float-5, .tech-float-6, .tech-float-7, .tech-float-8 { display: none; }
-  .tech-float small { display: none; }
-  .tech-float strong { font-size: .68rem; }
-  .tech-symbol { width: 1.75rem; height: 1.75rem; border-radius: .5rem; font-size: .88rem; }
-  .tech-float-1 {
-    display: flex;
-    left: 50%;
-    top: auto;
-    bottom: .25rem;
-    transform: translateX(-50%);
-  }
+  .portrait-person { max-width: min(64vw, 270px); }
+  .tech-float strong { font-size: .64rem; }
+  .tech-symbol { width: 1.62rem; height: 1.62rem; font-size: .82rem; }
+  .tech-float-1 { --radius: min(33vw, 132px); }
+  .tech-float-2 { --radius: min(34vw, 136px); }
+  .tech-float-4 { --radius: min(38vw, 152px); }
+  .tech-float-5 { --radius: min(38vw, 152px); }
   .contact-link strong { max-width: 175px; }
   .back-to-top { right: 1rem; bottom: 1rem; }
   .about-terminal { min-height: 26rem; border-radius: 1rem; }

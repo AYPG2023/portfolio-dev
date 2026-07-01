@@ -15,16 +15,16 @@ const PORTFOLIO = {
         { name: "Laravel", iconClass: "devicon-laravel-original", level: "advanced" },
         { name: "PHP", iconClass: "devicon-php-plain", level: "advanced" },
         { name: "REST APIs", fallback: "API", level: "advanced" },
-        { name: ".NET", iconClass: "devicon-dot-net-plain", level: "intermediate" },
-        { name: "C#", iconClass: "devicon-csharp-plain", level: "intermediate" },
-        { name: "Python", iconClass: "devicon-python-plain", level: "intermediate" }
+        { name: ".NET", iconClass: "devicon-dot-net-plain", level: "basic" },
+        { name: "C#", iconClass: "devicon-csharp-plain", level: "basic" },
+        { name: "Python", iconClass: "devicon-python-plain", level: "basic" }
       ]
     },
     {
       group: "Frontend",
       items: [
         { name: "Tailwind CSS", fallback: "TW", level: "advanced" },
-        { name: "Angular", iconClass: "devicon-angularjs-plain", level: "intermediate" },
+        { name: "Angular", iconClass: "devicon-angularjs-plain", level: "basic" },
         { name: "JavaScript", iconClass: "devicon-javascript-plain", level: "intermediate" },
         { name: "TypeScript", iconClass: "devicon-typescript-plain", level: "intermediate" },
         { name: "React", iconClass: "devicon-react-original", level: "basic" },
@@ -35,8 +35,8 @@ const PORTFOLIO = {
       group: "Databases",
       items: [
         { name: "MySQL", iconClass: "devicon-mysql-original", level: "advanced" },
-        { name: "SQL Server", iconClass: "devicon-microsoftsqlserver-plain", level: "intermediate" },
-        { name: "PostgreSQL", iconClass: "devicon-postgresql-plain", level: "intermediate" }
+        { name: "SQL Server", iconClass: "devicon-microsoftsqlserver-plain", level: "basic" },
+        { name: "PostgreSQL", iconClass: "devicon-postgresql-plain", level: "basic" }
       ]
     },
     {

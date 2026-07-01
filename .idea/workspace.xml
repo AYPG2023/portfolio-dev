@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1d3f003-f70c-46ac-81ed-406a57657c02" name="Changes" comment="" />
+    <list default="true" id="d1d3f003-f70c-46ac-81ed-406a57657c02" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +18,7 @@
     <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -22,12 +26,12 @@
     &quot;assignee&quot;: &quot;AYPG2023&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AYPG2023/landing_Umg.git&quot;,
-    &quot;accountId&quot;: &quot;ab9bc247-0bd3-4466-92fd-bc63a558034e&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AYPG2023/portfolio-dev.git",
+    "accountId": "ab9bc247-0bd3-4466-92fd-bc63a558034e"
   }
-}</component>
+}]]></component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../bin/php/php-8.3.19-Win32-vs16-x64/php.exe" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -47,7 +51,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/laragon/www/portafolio/assets/img/project",
     "node.js.detected.package.eslint": "true",
@@ -86,7 +90,8 @@
       <workItem from="1782425564638" duration="2355000" />
       <workItem from="1782485596303" duration="2001000" />
       <workItem from="1782840955488" duration="1476000" />
-      <workItem from="1782842482804" duration="5955000" />
+      <workItem from="1782842482804" duration="9518000" />
+      <workItem from="1782919001384" duration="2761000" />
     </task>
     <servers />
   </component>
